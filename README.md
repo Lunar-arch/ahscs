@@ -10,16 +10,20 @@
 	- automatic rerender detection
 	- debounce + min interval controls
 	- rolling history cleanup
-	- continuously overwritten `latest.png` for quick preview in VS Code
+	- continuously overwrites `latest.png` for quick preview in your IDE
 	- browser console and page error logging when enabled
 
 ## Install
 
 ```bash
-npm install
+npm install screensnip
 ```
 
-To publish or install the CLI globally, use the package name `screensnip`.
+`screensnip` depends on Playwright. A normal install should bring in Chromium automatically, but if browser downloads are disabled in your environment, run:
+
+```bash
+npx playwright install chromium
+```
 
 ## CLI Usage
 
@@ -41,7 +45,7 @@ Live stream mode:
 npm run screensnip:stream -- localhost:3000 --path /
 ```
 
-Minimal command (uses sensible defaults):
+Minimal command, using defaults configurable in `screensnip.config.json`:
 
 ```bash
 npm run screensnip -- --stream
@@ -124,7 +128,3 @@ Run `--help` for the full option set.
 Command modules can export `default` or `run` async function and receive:
 
 `{ page, context, browser, baseUrl, outDir, playwright, options, helpers, log }`
-
-## NPM Package Name
-
-This repository is configured as the npm package `screensnip`.
