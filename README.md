@@ -1,6 +1,6 @@
-# screensnip
+# clipview
 
-`screensnip` is a Playwright-based CLI and API for automated screenshots, including a live visual streaming mode designed for development environments where direct browser access is limited.
+`clipview` is a Playwright-based CLI and API for automated screenshots, including a live visual streaming mode designed for development environments where direct browser access is limited.
 
 ## What It Does
 
@@ -16,10 +16,10 @@
 ## Install
 
 ```bash
-npm install screensnip
+npm install -g clipview
 ```
 
-`screensnip` depends on Playwright. A normal install should bring in Chromium automatically, but if browser downloads are disabled in your environment, run:
+`clipview` depends on Playwright. A normal install should bring in Chromium automatically, but if browser downloads are disabled in your environment, run:
 
 ```bash
 npx playwright install chromium
@@ -30,25 +30,25 @@ npx playwright install chromium
 Run the CLI directly from the repo:
 
 ```bash
-npm run screensnip -- --help
+npm run clipview -- --help
 ```
 
 Quick one-shot example:
 
 ```bash
-npm run screensnip -- https://example.com --path / --sizes lg
+npm run clipview -- https://example.com --path / --sizes lg
 ```
 
 Live stream mode:
 
 ```bash
-npm run screensnip:stream -- localhost:3000 --path /
+npm run clipview:stream -- localhost:3000 --path /
 ```
 
-Minimal command, using defaults configurable in `screensnip.config.json`:
+Minimal command, using defaults configurable in `clipview.config.json`:
 
 ```bash
-npm run screensnip -- --stream
+npm run clipview -- --stream
 ```
 
 Default stream assumptions:
@@ -63,18 +63,18 @@ Default stream assumptions:
 Or with explicit controls:
 
 ```bash
-npm run screensnip -- localhost:3000 --stream --path /dashboard --outDir screenshots --folderName live --maxHistory 80 --minInterval 1500 --debounce 400 --streamPoll 1000 --browserConsole
+npm run clipview -- localhost:3000 --stream --path /dashboard --outDir screenshots --folderName live --maxHistory 80 --minInterval 1500 --debounce 400 --streamPoll 1000 --browserConsole
 ```
 
 ## Config File
 
-`screensnip` reads defaults from a JSON config file in the current working directory.
+`clipview` reads defaults from a JSON config file in the current working directory.
 
 Supported file names:
 
-- `screensnip.config.json`
-- `.screensniprc.json`
-- `.screensniprc`
+- `clipview.config.json`
+- `.clipviewrc.json`
+- `.clipviewrc`
 
 Example:
 

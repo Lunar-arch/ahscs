@@ -43,9 +43,9 @@ const BREAKPOINTS = {
 };
 
 const CONFIG_FILE_NAMES = [
-  "screensnip.config.json",
-  ".screensniprc.json",
-  ".screensniprc",
+  "clipview.config.json",
+  ".clipviewrc.json",
+  ".clipviewrc",
 ];
 
 function toPositiveInteger(value, name) {
@@ -461,7 +461,7 @@ export async function parseScreenshotArgs(argv, baseOptions = {}) {
 }
 
 export function printHelp() {
-  console.log(`Usage: screensnip [target] [options]
+  console.log(`Usage: clipview [target] [options]
 
 Capture Playwright screenshots from a dev server, direct URL, local file URL, or raw HTML.
 
@@ -512,15 +512,15 @@ Live stream mode:
 Default stream target:
   If --stream is used with no explicit source, it defaults to http://localhost:3000.
   You can also pass the target positionally:
-  screensnip localhost:3000 --stream
+  clipview localhost:3000 --stream
 
 Examples:
-  screensnip --sizes sm,lg --scroll page
-  screensnip https://example.com --capture viewport --name landing
-  screensnip --file ./dist/index.html --scroll selectors --scrollSelectors "#hero,#pricing"
-  screensnip --htmlFile ./snapshots/mock.html --waitFor "#app"
-  screensnip localhost:3000 --stream --browserConsole
-  screensnip --stream --port 3000 --path / --maxHistory 100 --minInterval 1500
+  clipview --sizes sm,lg --scroll page
+  clipview https://example.com --capture viewport --name landing
+  clipview --file ./dist/index.html --scroll selectors --scrollSelectors "#hero,#pricing"
+  clipview --htmlFile ./snapshots/mock.html --waitFor "#app"
+  clipview localhost:3000 --stream --browserConsole
+  clipview --stream --port 3000 --path / --maxHistory 100 --minInterval 1500
 
 Command file contract:
   Export an async function (default export or named 'run').
@@ -956,7 +956,7 @@ async function runCapturePreparation({
   const response = await loadTarget(page, sourceInfo, targetUrl, options);
 
   if (response && !response.ok()) {
-    console.warn("[screensnip]", `${response.status()} ${response.statusText()} ${response.url()}`);
+    console.warn("[clipview]", `${response.status()} ${response.statusText()} ${response.url()}`);
   }
 
   await runCommandModule(options.commands, {

@@ -1,5 +1,5 @@
 {
-  "name": "screensnip",
+  "name": "clipview",
   "version": "0.1.0",
   "private": false,
   "description": "Playwright screenshot capture and live streaming for local and remote development workflows.",
@@ -19,32 +19,32 @@
     "visual",
     "testing"
   ],
-  "homepage": "https://github.com/Lunar-arch/screensnip#readme",
+  "homepage": "https://github.com/Lunar-arch/clipview#readme",
   "bugs": {
-    "url": "https://github.com/Lunar-arch/screensnip/issues"
+    "url": "https://github.com/Lunar-arch/clipview/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lunar-arch/screensnip.git"
+    "url": "git+https://github.com/Lunar-arch/clipview.git"
   },
   "license": "MIT",
   "author": "Nathan Barcroft",
   "type": "module",
   "exports": {
-    ".": "packages/screenshot-kit/index.mjs"
+    ".": "./packages/screenshot-kit/index.mjs"
   },
   "bin": {
-    "screensnip": "packages/screenshot-kit/cli.mjs"
+    "clipview": "packages/screenshot-kit/cli.mjs"
   },
   "files": [
     "packages/screenshot-kit",
-    "screensnip.config.example.json",
+    "clipview.config.example.json",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "screensnip": "node packages/screenshot-kit/cli.mjs",
-    "screensnip:stream": "node packages/screenshot-kit/cli.mjs --stream --folderName live",
+    "clipview": "node packages/screenshot-kit/cli.mjs",
+    "clipview:stream": "node packages/screenshot-kit/cli.mjs --stream --folderName live",
     "check": "node --check packages/screenshot-kit/index.mjs && node --check packages/screenshot-kit/cli.mjs"
   },
   "dependencies": {
