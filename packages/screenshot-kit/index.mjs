@@ -239,6 +239,7 @@ function parseViewportToken(token) {
 export async function parseScreenshotArgs(argv, baseOptions = {}) {
   const configDefaults = await loadConfigDefaults(argv);
   const baseSource = typeof baseOptions.source === "string" ? baseOptions.source : null;
+  let modeExplicit = false;
   const options = {
     ...DEFAULTS,
     ...configDefaults,
@@ -503,6 +504,7 @@ export async function parseScreenshotArgs(argv, baseOptions = {}) {
         throw new Error("--mode must be one of: structured, raw.");
       }
       options.mode = mode;
+      modeExplicit = true;
       continue;
     }
 
@@ -566,6 +568,8 @@ export async function parseScreenshotArgs(argv, baseOptions = {}) {
   if (!options.latestName.toLowerCase().endsWith(".png")) {
     throw new Error("--latestName must end with .png.");
   }
+
+  options._modeExplicit = modeExplicit;
 
   return options;
 }
@@ -1486,6 +1490,11 @@ export async function runScreenshotTask(rawOptions) {
         ...onboardingConfig,
         ...rawOptions,
       };
+
+      // Honor onboarding's mode on first run unless user explicitly passed --mode.
+      if (!rawOptions._modeExplicit && onboardingConfig.mode) {
+        options.mode = String(onboardingConfig.mode).toLowerCase() === "structured" ? "structured" : "raw";
+      }
     }
   }
 
