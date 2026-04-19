@@ -168,7 +168,11 @@ function buildScriptCommand(packageManager, scriptName, port, frameworkId) {
     baseCommand = `npm run ${scriptName}`;
   }
 
-  if (!port) {
+  // Don't append port arguments to npm scripts. The PORT environment variable
+  // is set separately in the spawn call and is respected by all major frameworks.
+  // Using the -- separator with npm/pnpm/bun can cause argument passing issues.
+  // Only yarn allows direct flag passing without a separator.
+  if (!port || packageManager !== "yarn") {
     return baseCommand;
   }
 
@@ -191,29 +195,27 @@ function buildScriptCommand(packageManager, scriptName, port, frameworkId) {
     return baseCommand;
   }
 
-  if (packageManager === "yarn") {
-    return `${baseCommand} --port ${port}`;
-  }
-
-  return `${baseCommand} -- --port ${port}`;
+  // For yarn, pass port flag directly (yarn doesn't need -- separator)
+  return `${baseCommand} --port ${port}`;
 }
 
 function buildExecCommand(packageManager, command, port) {
-  const portArg = port ? ` --port ${port}` : "";
-
+  // Don't append port arguments to npm/pnpm/bun exec commands.
+  // The PORT environment variable is set separately in the spawn call
+  // and is respected by all major frameworks. This avoids argument passing issues.
   if (packageManager === "pnpm") {
-    return `pnpm exec ${command}${portArg}`;
+    return `pnpm exec ${command}`;
   }
 
   if (packageManager === "yarn") {
-    return `yarn ${command}${portArg}`;
+    return `yarn ${command}${port ? ` --port ${port}` : ""}`;
   }
 
   if (packageManager === "bun") {
-    return `bunx ${command}${portArg}`;
+    return `bunx ${command}`;
   }
 
-  return `npx ${command}${portArg}`;
+  return `npx ${command}`;
 }
 
 function guessPackageManagerFromLockfile(projectDir) {
